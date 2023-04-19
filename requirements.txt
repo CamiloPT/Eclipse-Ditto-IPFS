@@ -1,0 +1,14 @@
+certifi
+charset-normalizer
+dnspython
+idna
+ipfs-api
+numpy
+paho-mqtt
+pymongo
+python-dotenv
+requests
+schedule
+scipy
+six
+urllib3
