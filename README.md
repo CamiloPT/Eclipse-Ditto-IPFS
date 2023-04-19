@@ -11,9 +11,9 @@ Before running the project you need to setup Eclipse Ditto
 
   - Clone Ditto: ```git clone https://github.com/eclipse-ditto/ditto.git```
 
-  - Start Eclipse Ditto following the instructions in ```https://github.com/eclipse-ditto/ditto```
+  - Start Eclipse Ditto following the instructions in https://github.com/eclipse-ditto/ditto
 
-  - Start Eclipse-Ditto-MQTT-iWatch project following the ```https://github.com/bernar0507/ditto-examples/tree/master/mqtt-iwatch-wot#eclipse-ditto-mqtt-iwatch``` to populate Eclipse Ditto with some data
+  - Start Eclipse-Ditto-MQTT-iWatch project following the https://github.com/bernar0507/ditto-examples/tree/master/mqtt-iwatch-wot#eclipse-ditto-mqtt-iwatch to populate Eclipse Ditto with some data
 
 
 ## Start project
