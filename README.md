@@ -21,7 +21,7 @@ Before running the project you need to setup Eclipse Ditto
 - Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/CamiloPT/Eclipse-Ditto-IPFS.git
 ```
 
 - Go to the project directory and build the docker image
@@ -41,7 +41,7 @@ docker run --name ditto-ipfs --network docker_default ditto-ipfs-image
 - Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/CamiloPT/Eclipse-Ditto-IPFS.git
 ```
 
 - Install latest python version
