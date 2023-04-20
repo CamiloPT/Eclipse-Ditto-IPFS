@@ -24,6 +24,12 @@ Before running the project you need to setup Eclipse Ditto
   git clone https://github.com/CamiloPT/Eclipse-Ditto-IPFS.git
 ```
 
+- Create ```.env``` file and add the corresponding Ditto Mongo DB Client. The value by default is ```docker-mongodb-1:27017```
+
+```bash
+  MONGO_DB_CLIENT=
+```
+
 - Go to the project directory and build the docker image
 
 ```bash
