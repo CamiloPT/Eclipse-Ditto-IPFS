@@ -1,3 +1,3 @@
 import helper
 
-helper.ditto_data_to_file()
+helper.things_data_to_ipfs()

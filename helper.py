@@ -1,9 +1,11 @@
 import pymongo
 import json
 import ipfsApi
+import ipfshttpclient
 from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
+
 
 load_dotenv()
 
@@ -11,7 +13,6 @@ load_dotenv()
 MONGO_DB_CLIENT = os.environ.get("MONGO_DB_CLIENT", "docker-mongodb-1:27017")
 IPFS_CLIENT = os.environ.get("IPFS_CLIENT", "127.0.0.1")
 IPFS_CLIENT_PORT = os.environ.get("IPFS_CLIENT_PORT", 5001)
-DATA_FILE = "things_data.json"
 
 # Eclipse Ditto MongoDB configs
 mongoClient = pymongo.MongoClient(f"mongodb://{MONGO_DB_CLIENT}")
@@ -22,11 +23,9 @@ collection = database["things_journal"]
 ipfs = ipfsApi.Client(IPFS_CLIENT, IPFS_CLIENT_PORT)
 
 def save_ditto_things_ipfs():
-    now = datetime.now()
-
     last_hour_things = ditto_data_to_file()
-    ipfs_response = things_data_to_ipfs()
-    print(f"{now.strftime('%Y-%m-%d %H:%M:%S')}: {len(last_hour_things)} entries -> {ipfs_response}")
+    ipfs_responses = things_data_to_ipfs()
+    print(f"{ datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: {len(last_hour_things)} entries -> {ipfs_responses}")
 
 def get_last_hour_things():
     last_hour = datetime.utcnow() - timedelta(hours=1)
@@ -41,14 +40,25 @@ def get_last_hour_things():
 def ditto_data_to_file():
     last_hour_things = list(map(map_mongo_thing, get_last_hour_things()))
 
-    with open(DATA_FILE, "w") as f:
-        json.dump(last_hour_things, f)
+    for thing in last_hour_things:
+        print(thing["thingId"])
+        with open(f"{thing['thingId']}.json", "w") as f:
+            json.dump(thing, f)
 
     print('Mongo Data to file done')
     return last_hour_things
 
 def things_data_to_ipfs():
-    return ipfs.add(DATA_FILE)
+    print(ipfs.id)
+    ipfs_responses = []
+    directory = '.'
+    for filename in os.listdir('.'):
+        if os.path.isfile(os.path.join(directory, filename)):
+            if filename.endswith('.json'):
+                ipfs_response = ipfs.add(filename)
+                print(f"{filename} ---> {ipfs_response}")
+                ipfs_responses.append(ipfs_response)
+    return ipfs_responses
 
 def map_mongo_thing(mongo_thing):
     return {

@@ -1,3 +1,4 @@
 .env
 env
-things_data.json
+*.json
+*.pyc
