@@ -1,0 +1,64 @@
+version: '3.9'
+services:
+  ipfs_node1:
+    image: ipfs/go-ipfs
+    container_name: ipfs_node1
+    command: ["daemon", "--enable-pubsub-experiment"]
+    volumes:
+      - ./data/node1:/data/ipfs
+    ports:
+      - "4001:4001"
+      - "127.0.0.1:8091:8091"
+    networks:
+      - ipfs-network
+
+  ipfs_node2:
+    image: ipfs/go-ipfs
+    container_name: ipfs_node2
+    command: ["daemon", "--enable-pubsub-experiment"]
+    volumes:
+      - ./data/node2:/data/ipfs
+    ports:
+      - "4002:4001"
+      - "127.0.0.1:8092:8092"
+    networks:
+      - ipfs-network
+
+  ipfs_node3:
+    image: ipfs/go-ipfs
+    container_name: ipfs_node3
+    command: ["daemon", "--enable-pubsub-experiment"]
+    volumes:
+      - ./data/node3:/data/ipfs
+    ports:
+      - "4003:4001"
+      - "127.0.0.1:8093:8093"
+    networks:
+      - ipfs-network
+
+  ipfs_node4:
+    image: ipfs/go-ipfs
+    container_name: ipfs_node4
+    command: ["daemon", "--enable-pubsub-experiment"]
+    volumes:
+      - ./data/node4:/data/ipfs
+    ports:
+      - "4004:4001"
+      - "127.0.0.1:8094:8094"
+    networks:
+      - ipfs-network
+
+  ditto-to-ipfs:
+    build:
+      context: ./app
+    container_name: ditto-to-ipfs
+    volumes:
+      - ./app:/app
+    networks:
+      - docker_default
+
+networks:
+  ipfs-network:
+    driver: bridge
+  docker_default:
+    external: true
